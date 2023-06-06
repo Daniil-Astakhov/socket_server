@@ -28,7 +28,7 @@ io.on('connection', (socket) => {
         const userMessage = isExist ? `${user.name}, here you go again` : `${user.name} has join`;
         
         socket.emit('message', {
-            data: { user: { name: "Admin" }, message: `Hey my love ${user.name}` }
+            data: { user: { name: "Admin" }, message: `Hey ${user.name} !` }
         });
         socket.broadcast.to(user.room).emit('message', { 
             data: { user: { name: "Admin" }, message: userMessage }
@@ -49,7 +49,7 @@ io.on('connection', (socket) => {
 
         if(user) {
             const { room, name } = user;
-            io.to(room).emit('message', { data: { user: { name: "Admin" }, message: `${name} has leave room` } });
+            io.to(room).emit('message', { data: { user: { name: "Admin" }, message: `${name} left the room ` }});
 
             io.to(room).emit('leaveRoom', { data: { user: getRoomUsers(room) } })
         }
